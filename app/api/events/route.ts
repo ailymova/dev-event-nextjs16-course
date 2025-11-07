@@ -17,9 +17,9 @@ export async function POST(req : NextRequest) {
             return NextResponse.json({ message: 'Invalid form data' }, { status: 400 });
         }
 
-        const file = formData.get('image') as File;
-        if (!file) {
-            return NextResponse.json({ message: 'Image is required', status: 400 });
+        const file = formData.get('image');
+        if (!(file instanceof File)) {
+            return NextResponse.json({ message: 'Image is required' }, { status: 400 });
         }
 
         const arrayBuffer = await file.arrayBuffer();
