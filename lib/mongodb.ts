@@ -24,6 +24,7 @@ if (!MONGODB_URI) {
 // Initialize the cached connection object
 // In development, use a global variable to preserve the connection across hot reloads
 // In production, this will be created fresh on each serverless function invocation
+// eslint-disable-next-line prefer-const
 let cached: MongooseCache = global.mongooseCache || { conn: null, promise: null };
 
 if (!global.mongooseCache) {
