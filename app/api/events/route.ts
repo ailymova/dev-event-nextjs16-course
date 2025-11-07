@@ -54,6 +54,12 @@ export async function GET() {
 
         return NextResponse.json({message: 'Event list fetched successfully', events}, { status: 200 });
     } catch (e) {
-        return NextResponse.json({ message: 'Event fetching f', error: e}, { status: 500 });
+        return NextResponse.json(
+            {
+                message: 'Failed to fetch events',
+                error: e instanceof Error ? e.message : 'Unknown error',
+            },
+            { status: 500 }
+        );
     }
 }
