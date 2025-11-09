@@ -12,7 +12,7 @@ type RouteParams = {
 
 /**
  * GET /api/events/[slug]
- * Fetches a single events by its slug
+ * Fetches a single event by its slug
  */
 export async function GET(req: NextRequest, { params }: RouteParams): Promise<NextResponse> {
   try {
@@ -30,15 +30,15 @@ export async function GET(req: NextRequest, { params }: RouteParams): Promise<Ne
     // Sanitize slug (remove any potential malicious input)
     const sanitizedSlug = slug.trim().toLowerCase();
 
-    // Query events by slug
+    // Query event by slug
     const event = await Event.findOne({ slug: sanitizedSlug }).lean();
 
-    // Handle events not found
+    // Handle event not found
     if (!event) {
       return NextResponse.json({ message: `Event with slug '${sanitizedSlug}' not found` }, { status: 404 });
     }
 
-    // Return successful response with events data
+    // Return successful response with event data
     return NextResponse.json({ message: 'Event fetched successfully', event }, { status: 200 });
   } catch (error) {
     // Log error for debugging (only in development)
