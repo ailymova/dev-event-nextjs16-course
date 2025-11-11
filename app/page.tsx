@@ -1,4 +1,4 @@
-import EvenCard from "@/components/EvenCard";
+import EvenCard from '@/components/EventCard';
 import ExploreBtn from '@/components/ExploreBtn';
 import { IEvent } from '@/database';
 
@@ -37,7 +37,7 @@ const Page = async () => {
             {events &&
               events.length > 0 &&
               events.map((event: IEvent) => (
-                <li key={event.slug}>
+                <li key={event.slug} className="list-none">
                   <EvenCard {...event} />
                 </li>
               ))}
