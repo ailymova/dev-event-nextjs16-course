@@ -86,32 +86,18 @@ const EventsDetailsPage = async ({ params }: { params: Promise<{ slug: string }>
               <EventDetailItem icon="/icons/audience.svg" alt="audience" label={audience} />
             </section>
 
-            {agenda &&
-              agenda.length > 0 &&
-              (() => {
-                try {
-                  const parsedAgenda = JSON.parse(agenda[0]);
-                  return <EventAgenda agendaItems={Array.isArray(parsedAgenda) ? parsedAgenda : []} />;
-                } catch {
-                  return null;
-                }
-              })()}
+            {Array.isArray(agenda) && agenda.length > 0 && (
+              <EventAgenda agendaItems={agenda} />
+            )}
 
             <section className="flex-col-gap-2">
               <h2>About the Organizer</h2>
               {organizer}
             </section>
 
-            {tags &&
-              tags.length > 0 &&
-              (() => {
-                try {
-                  const parsedTags = JSON.parse(tags[0]);
-                  return <EventTags tags={Array.isArray(parsedTags) ? parsedTags : []} />;
-                } catch {
-                  return null;
-                }
-              })()}
+            {Array.isArray(tags) && tags.length > 0 && (
+              <EventTags tags={tags} />
+            )}
           </div>
 
           {/* Right Side - Booking Form */}
