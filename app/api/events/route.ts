@@ -24,10 +24,10 @@ export async function POST(req : NextRequest) {
 
         let tags, agenda;
         try {
-            tags = JSON.parse(formData.get('tags') as string);
-            agenda = JSON.parse(formData.get('agenda') as string);
-        } catch (e) {
-            return NextResponse.json({ message: 'Invalid tags or agenda format' }, { status: 400 });
+          tags = JSON.parse(formData.get('tags') as string);
+          agenda = JSON.parse(formData.get('agenda') as string);
+        } catch {
+          return NextResponse.json({ message: 'Invalid tags or agenda format' }, { status: 400 });
         }
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
