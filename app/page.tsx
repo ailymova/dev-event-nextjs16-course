@@ -1,6 +1,7 @@
 import EventCard from '@/components/EventCard';
 import ExploreBtn from '@/components/ExploreBtn';
 import { IEvent } from '@/database';
+import { cacheLife } from 'next/cache';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -8,10 +9,10 @@ if (!BASE_URL) {
   throw new Error('NEXT_PUBLIC_BASE_URL environment variable is not configured');
 }
 const Page = async () => {
+  'use cache';
+  cacheLife('hours');
   try {
-    const response = await fetch(`${BASE_URL}/api/events`, {
-      next: { revalidate: 3600 }, // Optional: add revalidation strategy
-    });
+    const response = await fetch(`${BASE_URL}/api/events`);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch events: ${response.status}`);
