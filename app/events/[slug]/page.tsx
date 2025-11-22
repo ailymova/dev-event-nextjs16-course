@@ -2,6 +2,7 @@ import BookEvent from '@/components/BookEvent';
 import EventCard from '@/components/EventCard';
 import { IEvent } from '@/database';
 import { getSimilarEventsBySlug } from '@/lib/actions/event.actions';
+import { cacheLife } from 'next/cache';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
@@ -36,6 +37,8 @@ const EventTags = ({ tags }: { tags: string[] }) => (
 );
 
 const EventsDetailsPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  'use cache';
+  cacheLife('hours');
   const { slug } = await params;
   if (!BASE_URL) {
     throw new Error('NEXT_PUBLIC_BASE_URL is not configured');
@@ -67,7 +70,7 @@ const EventsDetailsPage = async ({ params }: { params: Promise<{ slug: string }>
     return (
       <section id="event">
         <div className="header">
-          <h1>Event Description</h1>
+          <h1>{title}</h1>
           <p>{description}</p>
         </div>
 
@@ -98,7 +101,7 @@ const EventsDetailsPage = async ({ params }: { params: Promise<{ slug: string }>
               {organizer}
             </section>
 
-            {Array.isArray(tags) && tags.length > 0 && <EventTags tags={tags} />}
+            <EventTags tags={tags} />
           </div>
 
           {/* Right Side - Booking Form */}
@@ -111,7 +114,7 @@ const EventsDetailsPage = async ({ params }: { params: Promise<{ slug: string }>
                 <p className="text-sm ">Be the first to book your spot!</p>
               )}
 
-              <BookEvent />
+              <BookEvent eventId={event._id} slug={event.slug} />
             </div>
           </aside>
         </div>
