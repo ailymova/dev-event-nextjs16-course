@@ -67,7 +67,7 @@ const EventsDetailsPage = async ({ params }: { params: Promise<{ slug: string }>
     return (
       <section id="event">
         <div className="header">
-          <h1>Event Description</h1>
+          <h1>{title}</h1>
           <p>{description}</p>
         </div>
 
@@ -111,7 +111,7 @@ const EventsDetailsPage = async ({ params }: { params: Promise<{ slug: string }>
                 <p className="text-sm ">Be the first to book your spot!</p>
               )}
 
-              <BookEvent />
+              <BookEvent eventId={event._id} slug={event.slug} />
             </div>
           </aside>
         </div>
